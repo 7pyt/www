@@ -1,0 +1,255 @@
+
+El Primo <elprimodewish@gmail.com>
+11:27 PM (0 minutes ago)
+to me
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Connexion</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html,body{
+width:100%;
+height:100%;
+background:black;
+overflow:hidden;
+font-family: 'Arial Black', sans-serif;
+}
+
+/* ===== FOND MANGA ===== */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+repeating-linear-gradient(
+135deg,
+#000 0px,
+#000 6px,
+#fff 6px,
+#fff 12px
+);
+opacity:0.1;
+animation:bgMove 10s linear infinite;
+z-index:-5;
+}
+@keyframes bgMove{
+from{background-position:0 0;}
+to{background-position:500px 500px;}
+}
+
+/* ===== VHS / BRUIT ===== */
+.noise{
+position:fixed;
+inset:0;
+background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+opacity:0.18;
+pointer-events:none;
+z-index:10;
+}
+
+.vhs{
+position:fixed;
+inset:0;
+background:linear-gradient(
+rgba(255,0,0,0.05),
+rgba(0,255,255,0.05)
+);
+mix-blend-mode:overlay;
+animation:vhs 0.15s infinite;
+pointer-events:none;
+z-index:9;
+}
+@keyframes vhs{
+0%{transform:translate(0);}
+25%{transform:translate(2px,-2px);}
+50%{transform:translate(-2px,2px);}
+75%{transform:translate(2px,2px);}
+100%{transform:translate(0);}
+}
+
+/* ===== CONTAINER ===== */
+.container{
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+color:white;
+text-align:center;
+z-index:2;
+}
+
+/* ===== GLITCH TEXTE ===== */
+.glitch{
+font-size:5rem;
+letter-spacing:6px;
+position:relative;
+animation:flicker 1.5s infinite;
+}
+.glitch::before,.glitch::after{
+content:attr(data-text);
+position:absolute;
+left:0; top:0;
+}
+.glitch::before{
+color:red;
+transform:translate(3px,-3px);
+opacity:.7;
+}
+.glitch::after{
+color:cyan;
+transform:translate(-3px,3px);
+opacity:.7;
+}
+@keyframes flicker{
+0%{opacity:1;}
+50%{opacity:.85;}
+100%{opacity:1;}
+}
+
+/* ===== BOUTON ===== */
+button{
+margin-top:40px;
+padding:20px 70px;
+font-size:1.5rem;
+background:black;
+color:white;
+border:2px solid white;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{
+background:white;
+color:black;
+box-shadow:0 0 30px white;
+}
+
+/* ===== CHAOS ===== */
+.chaos{
+animation:shake .08s infinite;
+}
+@keyframes shake{
+0%{transform:translate(0);}
+25%{transform:translate(3px,-3px);}
+50%{transform:translate(-3px,3px);}
+75%{transform:translate(3px,3px);}
+100%{transform:translate(0);}
+}
+
+/* ===== FOND LGBTQ ===== */
+.rainbow{
+position:fixed;
+inset:0;
+background:linear-gradient(
+120deg,
+red,orange,yellow,green,cyan,blue,purple
+);
+background-size:400% 400%;
+animation:rainbow 4s linear infinite;
+display:none;
+z-index:-6;
+}
+@keyframes rainbow{
+from{background-position:0% 50%;}
+to{background-position:100% 50%;}
+}
+
+/* ===== DRAPEAUX ===== */
+.flags{
+position:fixed;
+inset:0;
+pointer-events:none;
+display:none;
+z-index:5;
+}
+.flag{
+position:absolute;
+font-size:3rem;
+animation:fall linear infinite;
+}
+@keyframes fall{
+from{
+transform:translateY(-20vh) rotate(0);
+opacity:1;
+}
+to{
+transform:translateY(120vh) rotate(1080deg);
+opacity:0;
+}
+}
+
+/* ===== FLASH ===== */
+.flash{
+position:fixed;
+inset:0;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:20;
+}
+</style>
+</head>
+
+<body>
+
+<div class="rainbow" id="rainbow"></div>
+<div class="noise"></div>
+<div class="vhs"></div>
+<div class="flash" id="flash"></div>
+
+<div class="container" id="container">
+<div class="glitch" id="title" data-text="CONNEXION">CONNEXION</div>
+<button id="btn">Connexion</button>
+</div>
+
+<div class="flags" id="flags"></div>
+
+<audio id="sound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-glitchy-digital-effect-1645.mp3">
+</audio>
+
+<script>
+const btn=document.getElementById("btn");
+const title=document.getElementById("title");
+const flags=document.getElementById("flags");
+const rainbow=document.getElementById("rainbow");
+const flash=document.getElementById("flash");
+const sound=document.getElementById("sound");
+
+const emojis=["🏳️‍🌈","🏳️‍⚧️","💖","💜","💙","💛","❤️"];
+
+btn.onclick=()=>{
+sound.play();
+document.body.classList.add("chaos");
+
+flash.style.opacity=1;
+setTimeout(()=>flash.style.opacity=0,120);
+
+rainbow.style.display="block";
+flags.style.display="block";
+
+title.textContent="NTM ANAS";
+title.setAttribute("data-text","NTM ANAS");
+title.style.fontSize="6rem";
+
+btn.remove();
+
+for(let i=0;i<180;i++){
+const f=document.createElement("div");
+f.className="flag";
+f.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+f.style.left=Math.random()*100+"vw";
+f.style.animationDuration=(1.5+Math.random()*3)+"s";
+f.style.fontSize=(2+Math.random()*4)+"rem";
+flags.appendChild(f);
+}
+};
+</script>
+
+</body>
+</html>
